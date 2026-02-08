@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+
+    <div class="hero-section">
+        <h1>Employee Directory</h1>
+        <p>Efficiently manage your workforce with our intuitive dashboard.</p>
+    </div>
+
+    <div class="table-container glass">
+        <% if (typeof employees==='undefined' || employees.length===0) { %>
+            <div class="empty-state">
+                <h2>No Employees Found</h2>
+                <p>Start by adding your first employee to the system.</p>
+                <a href="/add" class="btn-primary" style="margin-top: 20px; display: inline-block;">Add New Employee</a>
+            </div>
+            <% } else { %>
+                <div class="table-wrapper">
+                    <table class="employee-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% employees.forEach(employee=> { %>
+                                <tr>
+                                    <td class="id-cell">#<%= employee.id %>
+                                    </td>
+                                    <td class="name-cell">
+                                        <%= employee.name %>
+                                    </td>
+                                    <td>
+                                        <%= employee.age %>
+                                    </td>
+                                    <td class="address-cell">
+                                        <%= employee.address %>
+                                    </td>
+                                    <td>
+                                        <%= employee.phoneNumber %>
+                                    </td>
+                                    <td class="actions">
+                                        <a href="/edit/<%= employee.id %>" class="btn-secondary btn-sm">Edit</a>
+                                        <a href="/delete/<%= employee.id %>" class="btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete <%= employee.name %>?');">Delete</a>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                <% } %>
+    </div>
+
+    <%- include('partials/footer') %>
