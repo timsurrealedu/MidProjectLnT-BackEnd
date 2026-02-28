@@ -1,10 +1,9 @@
 const { PrismaClient } = require('@prisma/client');
 const { PrismaBetterSqlite3 } = require('@prisma/adapter-better-sqlite3');
-const Database = require('better-sqlite3');
 
-const dbPath = process.env.DATABASE_URL ? process.env.DATABASE_URL.replace('file:', '') : './dev.db';
-const db = new Database(dbPath);
-const adapter = new PrismaBetterSqlite3(db);
+const adapter = new PrismaBetterSqlite3({
+    url: process.env.DATABASE_URL || 'file:./dev.db'
+});
 const prisma = new PrismaClient({ adapter });
 
 // Get all employees
